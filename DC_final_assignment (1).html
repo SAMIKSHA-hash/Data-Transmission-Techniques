@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Transmission Techniques</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .animate-simplex { animation: simplex 4s linear infinite; }
+        .animate-half-duplex { animation: halfduplex 4s linear infinite alternate; }
+        .animate-full-duplex { animation: fullduplex 4s linear infinite ; }
+        .animate-full-duplex-reverse { animation: fullduplex-reverse 4s linear infinite; }
+        .animate-serial { animation: serial 4s linear infinite; }
+        .animate-parallel { animation: parallel 2s linear infinite; }
+        .animate-simplex, 
+        .animate-half-duplex, 
+        .animate-full-duplex, 
+        .animate-full-duplex-reverse, 
+        .animate-serial, 
+        .animate-parallel {
+                animation-play-state: paused; /* Initially paused */
+        }
+
+        
+        @keyframes simplex {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(400px); }
+        }
+        @keyframes halfduplex {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(400px); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes fullduplex {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(400px); }
+        }
+        @keyframes fullduplex-reverse {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-400px); }
+        }
+        @keyframes serial {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(400px); }
+        }
+        @keyframes parallel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+    </style>
+    
+</head>
+<body class="bg-gray-700 flex flex-col items-center justify-center min-h-screen p-6">
+    <h1 class="text-white text-3xl font-bold mb-6">Data Transmission Techniques</h1>
+    
+    <div class="mb-6">
+        <button id="startBtn" class="px-4 py-2 bg-blue-500 text-white rounded mr-2">Start</button>
+        <button id="stopBtn" class="px-4 py-2 bg-red-500 text-white rounded">Stop</button>
+    </div>
+    
+    <div class="space-y-10">
+        <!-- Simplex -->
+        <div class="bg-white p-6 rounded-lg shadow-md w-[500px] text-center transmission-box">
+            <h2 class="text-xl font-semibold mb-4">Simplex</h2>
+            <div class="relative w-full h-10 bg-blue-100 rounded-md">
+                <div class="absolute left-0 top-2 w-8 h-6 bg-blue-500 text-white flex items-center justify-center rounded animate-simplex">→</div>
+            </div>
+            <p class="text-gray-600 mt-2">One-way communication only</p>
+            <div class="hidden fact text-left mt-2 text-gray-700">
+                <p><strong>Example:</strong> Radio broadcasting, TV broadcasting.</p>
+                <p><strong>Advantage:</strong> Simple and cost-effective.</p>
+                <p><strong>Disadvantage:</strong> No feedback or acknowledgment from receiver.</p>
+            </div>
+        </div>
+
+<!-- Half-Duplex -->
+<div class="bg-white p-6 rounded-lg shadow-md w-[500px] text-center transmission-box">
+    <h2 class="text-xl font-semibold mb-4">Half-Duplex</h2>
+    <div class="relative w-full h-10 bg-yellow-100 rounded-md">
+        <div class="absolute left-0 top-2 w-8 h-6 bg-yellow-500 text-white flex items-center justify-center rounded animate-half-duplex">↔</div>
+    </div>
+    <p class="text-gray-600 mt-2">Two-way communication, but only one at a time</p>
+    <div class="hidden fact text-left mt-2 text-gray-700">
+        <p><strong>Example:</strong> Walkie-talkies, Two-way radio communication.</p>
+        <p><strong>Advantage:</strong> Efficient use of bandwidth as both devices can communicate.</p>
+        <p><strong>Disadvantage:</strong> Only one device can transmit at a time, leading to potential delays.</p>
+    </div>
+</div>
+
+<!-- Full-Duplex -->
+<div class="bg-white p-6 rounded-lg shadow-md w-[500px] text-center transmission-box">
+    <h2 class="text-xl font-semibold mb-4">Full-Duplex</h2>
+    <div class="relative w-full h-10 bg-green-100 rounded-md flex justify-between overflow-hidden">
+        <div class="w-8 h-6 bg-green-500 text-white flex items-center justify-center rounded absolute left-0 top-2 animate-full-duplex">→</div>
+        <div class="w-8 h-6 bg-green-700 text-white flex items-center justify-center rounded absolute right-0 top-2 animate-full-duplex-reverse">←</div>
+    </div>                     
+    <p class="text-gray-600 mt-2">Simultaneous two-way communication</p>
+    <div class="hidden fact text-left mt-2 text-gray-700">
+        <p><strong>Example:</strong> Telephone networks, Fiber optic communication.</p>
+        <p><strong>Advantage:</strong> Simultaneous two-way communication increases efficiency.</p>
+        <p><strong>Disadvantage:</strong> More complex and expensive hardware required.</p>
+    </div>
+</div>
+ <!-- Serial Transmission -->
+ <div class="bg-white p-6 rounded-lg shadow-md w-[500px] text-center cursor-pointer transmission-box">
+    <h2 class="text-xl font-semibold mb-4">Serial Transmission</h2>
+    <div class="relative w-[90%] h-10 bg-gray-200 rounded-md mx-auto">
+        <div class="absolute left-0 top-2 w-8 h-6 bg-gray-500 text-white flex items-center justify-center rounded animate-serial">→</div>
+    </div>
+    <p class="text-gray-600 mt-2">Data is transmitted bit by bit sequentially.</p>
+    
+    <div class="hidden fact text-left mt-2 text-gray-700">
+        <p><strong>Example:</strong> USB and RS-232 use Serial Transmission.</p>
+        <p><strong>Advantage:</strong> Reduces cost of transmission over parallel by roughly a factor of n.</p>
+        <p><strong>Disadvantage:</strong> Slower than parallel transmission as bits are sent one at a time.</p>
+    </div>
+</div>
+
+
+<!-- Parallel Transmission -->
+<div class="bg-white p-6 rounded-lg shadow-md w-[500px] text-center cursor-pointer transmission-box">
+    <h2 class="text-xl font-semibold mb-4">Parallel Transmission</h2>
+    <div class="relative w-full h-10 bg-gray-300 rounded-md flex justify-between">
+        <div class="w-8 h-6 bg-gray-600 text-white flex items-center justify-center rounded animate-parallel">→</div>
+        <div class="w-8 h-6 bg-gray-700 text-white flex items-center justify-center rounded animate-parallel">→</div>
+        <div class="w-8 h-6 bg-gray-800 text-white flex items-center justify-center rounded animate-parallel">→</div>
+    </div>
+    <p class="text-gray-600 mt-2">Multiple bits transmitted simultaneously.</p>
+    <div class="hidden fact text-left mt-2 text-gray-700">
+        <p><strong>Example:</strong> Older computer buses, PCI, Parallel ATA.</p>
+        <p><strong>Advantage:</strong> 
+            <ul>
+                <li>-Speed.</li>
+                <li>-Can increase transfer speed by a factor of n over serial transmission.</li>
+            </ul>
+        </p>
+        <p><strong>Disadvantage:</strong> 
+            <ul>
+                <li>-Cost.</li>
+                <li>-Limited to short distances due to signal degradation.</li>
+            </ul>
+        </p>
+    </div>
+    
+</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("[class*='animate-']").forEach(el => {
+                el.style.animationPlayState = "paused";
+            });
+        });
+        document.getElementById("startBtn").addEventListener("click", function () {
+            document.querySelectorAll("[class*='animate-']").forEach(el => {
+                el.style.animationPlayState = "running";
+            });
+        });
+        document.getElementById("stopBtn").addEventListener("click", function () {
+            document.querySelectorAll("[class*='animate-']").forEach(el => {
+                el.style.animationPlayState = "paused";
+            });
+        });
+
+        document.querySelectorAll(".transmission-box").forEach(box => {
+            box.addEventListener("mouseenter", function () {
+                let fact = this.querySelector(".fact");
+                fact.classList.remove("hidden");
+            });
+            
+            box.addEventListener("mouseleave", function () {
+                let fact = this.querySelector(".fact");
+                fact.classList.add("hidden");
+            });
+        });
+    </script>
+</body>
+</html>
